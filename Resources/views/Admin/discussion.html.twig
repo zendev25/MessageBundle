@@ -1,0 +1,36 @@
+{% trans_default_domain "message" %}
+{% set nbMess = 0 %}
+{% if discussion.messages is not empty %}  
+    {% set nbMess = discussion.messages|length %}
+{% endif %}
+<li class="discussion">
+    <span class="discussion-status">{{ discussion.getIsReadValue(discussion.isReadAdmin) }}</span>
+    <span class="discussion-subject text">
+        {{ discussion.subject }}
+        {% if (nbMess > 1) %}
+            ( {{ nbMess }} )
+        {% endif %}
+    </span>
+    <a class="button-answer button-text" href="{{ path('zen_admin_add_message', {'id_discussion': discussion.id }) }}" >{{'message.answer'|trans}}</a>
+    <a class="button-archive button-text" href="{{ path('zen_admin_archived_discussion', {'id_discussion': discussion.id }) }}" >{{'message.archived'|trans}}</a>
+
+    <div class="accordion-content">
+        <ul class="messages-list">
+            {% for message in discussion.messages %}
+                <li class="message-item">
+                    <span class="meta">
+                        From : 
+                        <span class="author">{{message.sender.lastname}} {{message.sender.firstname}}</span>
+                        <span class="date">{{ message.dateSend|date("m/d/Y") }}</span>
+                    </span>
+                    <hr class="line" />
+                    <p class="message-content">
+                        {{ message.content }}
+                    </p>
+                    <div class="clear"></div>
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="clear"></div>
+    </div>
+</li>

@@ -1,0 +1,12 @@
+services:
+  zen.mesbundle.twig_extension:
+   class: ZEN\MessageBundle\Service\Twig\MessageExtension
+   arguments: [@service_container]
+   tags:
+      -  { name: twig.extension }
+      
+  zen.mesbundle.manager.post:
+    class:     ZEN\MessageBundle\Manager\CatMessageManager
+    arguments: ["@doctrine.orm.default_entity_manager", "ZEN\MessageBundle\Entity\CatMessage"]
+    calls:
+       - [setRepositoryLocale, ["@service_container"]]

@@ -1,0 +1,129 @@
+{% extends "ZENMessageBundle::layout.html.twig" %}
+{% block content %}
+
+    <div class="container-fluid no-padding">
+
+        <div class="col-xs-2 mailbox-sidebar">
+
+            <a href="{{path('zen_admin_add_message')}}" title="Nouveau Message"><span class="li-icon add"></span>Nouveau Message</a>
+            <div class="clear"></div>
+
+            {% if catMessages is defined and catMessages is not empty %}
+                <ul class="striped accordion">
+                    {% for id, catMessage in catMessages %}
+
+                        {# Ajoute la classe viewed à la catégorie visionné#}
+                        {% set class = isClassActive(id, currentCat, 'viewed') %}
+
+                        {# Ajoute la classe black à la catégories archive et like-inn #}
+                        {% if id < 0 %}
+                            {% set class = class ~ ' black' %}
+                        {% endif %}
+
+
+                        <li class="{{ class }}">
+
+
+                            <a class="accordion-item button-text" href="{{ path('zen_admin_list_discussion', {'id_cat_message': id}) }}"> 
+
+                                {# Sur l'élément tous les messages, on affiche le nombre de message non lus #}
+                                {% if id == 0 %}
+                                    <span class="badge">{{nbNewDiscussions}}</span> 
+                                {% endif %}
+
+                                {# like inn archive #}
+                                {% if id == -1 %}
+                                    <span class="li-icon archive"></span>
+                                {% endif %}
+                                {# like inn message #}
+                                {% if id == -2 %}
+                                    <span class="li-icon li-message"></span>
+                                {% endif %}
+                                <span class="text">{{catMessage}}</span>
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+        </div>
+
+
+        <div class="col-xs-8">
+            {% if catMessages is defined and catMessages is not empty %}  
+                <h3 class="box box-title black">
+                    <span class="li-icon list"></span>
+                    <span class="text">{{ catMessages[currentCat] }}</span>
+                </h3>
+            {% endif %}
+
+            {% if discussions is defined and discussions is not empty %}        
+                {#
+                                {% set archived = "Archiver" %}
+                                {% if(discussion.archived) %}
+                                    {% set archived = "Désarchiver" %}
+                                {% endif %}
+                #}
+                {#                <p>{{nbDiscussions}} messages, {{nbNewDiscussions}} à lire</p>#}
+
+                <ul id="table_message" class="striped accordion">
+                    {% for discussion in discussions %}
+                        {% include "ZENMessageBundle:Admin:discussion.html.twig" with {'discussion':discussion} %}
+                    {% endfor %}
+                </ul>
+
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block modal %}
+
+
+    <div class="modal li-modal fade" id="modal-bo-answer-mail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                    <h4 class="modal-title">Répondre message</h4>
+                </div>
+
+                <div class="modal-body" id="modal-login-form">
+
+                    {{ render(controller("ZENMessageBundle:AdminMessage:addMessage", {'id_discussion': 1} )) }}
+                    <div class="clear"></div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal li-modal fade" id="modal-bo-new-mail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                    <h4 class="modal-title">Nouveau message</h4>
+                </div>
+
+                <div class="modal-body" id="modal-login-form">
+
+                    {{ render(controller("ZENMessageBundle:AdminMessage:addMessage")) }}
+                    <div class="clear"></div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+    {% javascripts 'bundles/zenmessage/js/*' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

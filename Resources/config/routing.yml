@@ -1,0 +1,56 @@
+zen_mes_list_discussion:
+    path: /message/list-discussion/{id_cat_message}
+    defaults: { _controller: ZENMessageBundle:UserMessage:listDiscussion, id_cat_message: 0}
+    requirements:
+        id_cat_message: "^-?[0-9]+"
+    
+zen_mes_add_message:
+    path: /message/add-message/{id_discussion}
+    defaults: { _controller: ZENMessageBundle:UserMessage:addMessage, id_discussion: 0}
+    requirements:
+        id_discussion: \d*
+    
+zen_mes_delete_message:
+    path: /message/delete-message/{id_message}
+    defaults: { _controller: ZENMessageBundle:UserMessage:deleteMessage, id_message: 0}
+    requirements:
+        id_message: \d*
+    
+zen_mes_archived_discussion:
+    path: /message/archived-discussion/{id_discussion}
+    defaults: { _controller: ZENMessageBundle:UserMessage:archivedDiscussion, id_discussion: 0}
+    requirements:
+        id_discussion: \d*
+        
+zen_mes_discussion:
+    path: /message/discussion/{id_discussion}
+    defaults: { _controller: ZENMessageBundle:UserMessage:setIsReadDiscussion, id_discussion: 0}
+    requirements:
+        id_discussion: \d*
+        
+        
+ 
+ 
+zen_admin_list_discussion:
+    path: /admin/message/list-discussion/{id_cat_message}
+    defaults: { _controller: ZENMessageBundle:AdminMessage:listDiscussion, id_cat_message: 0}
+    requirements:
+        id_cat_message: "^-?[0-9]+"
+     
+zen_admin_add_message:
+    path: /admin/message/add-message/{id_discussion}
+    defaults: { _controller: ZENMessageBundle:AdminMessage:addMessage, id_discussion: 0}
+    requirements:
+        id_discussion: \d*        
+ 
+zen_admin_archived_discussion:
+    path: /admin/message/archived-discussion/{id_discussion}
+    defaults: { _controller: ZENMessageBundle:AdminMessage:archivedDiscussion, id_discussion: 0}
+    requirements:
+        id_discussion: \d*
+        
+zen_admin_discussion:
+    path: /admin/message/discussion/{id_discussion}
+    defaults: { _controller: ZENMessageBundle:AdminMessage:setIsReadDiscussion, id_discussion: 0}
+    requirements:
+        id_discussion: \d*   
