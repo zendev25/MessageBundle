@@ -51,7 +51,7 @@ class UserMessageController extends Controller {
                 $discussion->setGroup($user->$getGroup());
             }
 
-            $dateSend = date("Y-m-d H:i:s");
+            $dateSend = new \DateTime("now");
             $discussion->setDateUpdate($dateSend);
             $message->setDiscussion($discussion);
             $message->setSender($user);

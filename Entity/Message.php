@@ -45,7 +45,7 @@ class Message {
     /**
      * @var \DateTime
      * @Assert\DateTime()
-     * @ORM\Column(name="date_send", type="string")
+     * @ORM\Column(name="date_send", type="datetime")
      */
     private $dateSend;
 

@@ -34,7 +34,7 @@ class AdminMessageController extends Controller {
         }
         //Gere la soumission
         if ($form->handleRequest($request)->isValid()) {
-            $dateSend = date("Y-m-d H:i:s");
+            $dateSend = new \DateTime("now");
             //Réponse à un message
             if ($id_discussion) {
                 //récup le destinataire
