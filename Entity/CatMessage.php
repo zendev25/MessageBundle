@@ -11,7 +11,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * CatMessage
  *
- * @ORM\Table(options={"engine"="MyISAM"})
  * @ORM\Entity(repositoryClass="ZEN\MessageBundle\Repository\CatMessageRepository")
  */
 class CatMessage extends TranslatableEntity {

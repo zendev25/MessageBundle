@@ -8,7 +8,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Message
  *
- * @ORM\Table(options={"engine"="MyISAM"})
  * @ORM\Entity(repositoryClass="ZEN\MessageBundle\Repository\MessageRepository")
  */
 class Message {
