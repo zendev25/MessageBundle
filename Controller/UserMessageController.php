@@ -126,7 +126,7 @@ class UserMessageController extends Controller {
         $catMessages = $em->getRepository('ZENMessageBundle:CatMessage')->findAll();
 
         //créer la liste des catégories pour la vue
-        $listCatMessage = array(0 => "Tout les messages");
+        $listCatMessage = array(0 => "allMessage");
         foreach ($catMessages as $cm) {
             $name = $cm->getName();
             if (empty($name)) {
@@ -135,7 +135,7 @@ class UserMessageController extends Controller {
             $listCatMessage[$cm->getId()] = $name;
         }
 
-        $listCatMessage["-1"] = "Archivés";
+        $listCatMessage["-1"] = "archived";
         $listCatMessage["-2"] = "Hall-Inn";
 
         $nbNewDiscussions = $em->getRepository('ZENMessageBundle:Discussion')->countNewDiscussions($idGroup, $idUser);

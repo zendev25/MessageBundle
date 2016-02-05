@@ -39,7 +39,12 @@
                                 {% if id == -2 %}
                                     <span class="li-icon li-message"></span>
                                 {% endif %}
-                                <span class="text">{{catMessage}}</span>
+
+                                {% if id == 0 or id == -1 %}
+                                    <span class="text">{{catMessage|trans}}</span>
+                                {% else %}
+                                    <span class="text">{{catMessage}}</span>
+                                {% endif %}
                                 <span class="glyphicon glyphicon-chevron-right"></span>
                             </a>
                         </li>
@@ -54,7 +59,7 @@
             {% if catMessages is defined and catMessages is not empty %}  
                 <h3 class="box box-title black">
                     <span class="li-icon list"></span>
-                    <span class="text">{{ catMessages[currentCat] }}</span>
+                    <span class="text">{{ catMessages[currentCat]|trans }}</span>
                 </h3>
             {% endif %}
 
